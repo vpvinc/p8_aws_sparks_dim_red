@@ -1,0 +1,15 @@
+[
+  {
+    "Classification": "spark",
+    "Properties": {
+      "maximizeResourceAllocation": "true",
+	  "spark.sql.files.maxRecordsPerFile": "10000"
+    }
+  },
+  {
+    "Classification": "livy-conf",
+    "Properties": {
+      "livy.server.session.timeout": "5h"
+    }
+  }  
+]
