@@ -216,9 +216,12 @@ Select the EC2 key pair that you will use in your spark application
 
 ### b. Execution of the spark application on the cluster
 
-input data: 100 images (size: 451 KB)
+The app is run on an EMR notebook. For more details, check [Working with EMR Notebooks](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-notebooks-working-with.html) 
+and make sure Livy and JupyterEnterpriseGateway were installed (see 5. a.) before using.
 
-Completion time: 18 minutes
+**information on execution:**
+- input data: 100 images (size: 451 KB)
+- Completion time: 18 minutes
 
 ## 6. Limits and perspectives
 
