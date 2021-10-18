@@ -55,8 +55,10 @@ https://www.techspot.com/downloads/5198-java-jre.html
 
 
 3) Set environment variable for java and spark
-SPARK_HOME => C:\Users\VP\anaconda3\envs\env_p8_3_7\Lib\site-packages\pyspark
-JAVA_HOME => C:\Program Files\Java\jdk1.8.0_301
+
+    SPARK_HOME => C:\Users\VP\anaconda3\envs\env_p8_3_7\Lib\site-packages\pyspark
+
+    JAVA_HOME => C:\Program Files\Java\jdk1.8.0_301
 
 
 2) In order to run some operations of Spark on windows such as saving to a paquet file, you would need Hadoop winutils.exe file as windows don’t support HDFS and winutils provides a wrapper
@@ -153,7 +155,7 @@ length 7 that explains more than 99% of variations.
 Once the local app has been tested, we need to configure a cluster on AWS EMR to run the app on a distributed way 
 on a much larger sample.
 
-First a qucik reminder about what [AWS EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html) is:
+First a quick reminder about what [AWS EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html) is:
 >Amazon EMR (previously called Amazon Elastic MapReduce) is a managed cluster platform that simplifies running big data
 > frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data. Using
 > these frameworks and related open-source projects, you can process data for analytics purposes and business 
@@ -164,8 +166,8 @@ Note: the distributed file system used is S3 File system, not HDFS.
 
 **Configuration of the cluster through the AWS console:**
 
-Consider that all elements not mentioned are left with defaults values
-1) Software and steps:
+Consider that all elements not mentioned are left with default values
+1) **Software and steps:**
 - Software Configuration:
 
 EMR release: 6.4.0
@@ -177,7 +179,7 @@ select Spark, JupyterEnterpriseGateway and Livy (necessary to use EMR notebooks)
 - Edit software settings:
 
 select "Load JSON from S3" and write the path to MyConfig.json in an accessible s3 repo.
-This file contains values to modify some default properties of the software installed in the previous step
+This file contains values to modify some default properties of the software installed in the previous step.
 The properties modified are the following:
 
 [maximizeResourceAllocation](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark-configure.html#emr-spark-maximizeresourceallocation) -> True: let AWS optimize spark properties to maximise resource allocation
@@ -187,7 +189,7 @@ from crashing during the .write step.
 
 [livy.server.session.timeout](https://stackoverflow.com/questions/54220381/how-to-set-livy-server-session-timeout-on-emr-cluster-boostrap) -> "5H": prevents the session of shutting down after 1H (default value) of execution for a task 
 
-3) General cluster settings:
+3) **General cluster settings:**
 - bootstrap actions
 
 add a custom action, write the path the bootstrap file on an accessible s3 repo
@@ -208,25 +210,26 @@ sudo pip3 install s3fs
 pandas for compatibility. Besides, bootstrap files generally include `sudo yum update` to update packages of the linux distribution
 on the node. In our case, this instruction would not complete, so the instruction was removed and the bootstrap action completed.
 
-4) Security
+4) **Security**
 
 Select the EC2 key pair that you will use in your spark application
 
-### a. Execution of the spark application on the cluster
+### b. Execution of the spark application on the cluster
 
 input data: 100 images (size: 451 KB)
+
 Completion time: 18 minutes
 
 ## 6. Limits and perspectives
 
- # Size of featurized image
+ #### a. Size of featurized image
 
 The PCA takes 15 minutes to complete. One approach to make it faster could be reducing the size of the input vectors (100352).
-More precisely, we could find a pre-trained CNN that featurizes images in shorter vectors, while loosing a marginal information
+More precisely, we could find a pre-trained CNN that featurizes images in shorter vectors, while loosing marginal information
 compared with RestNet50.
 
-# Tuning of the cluster
+### b. Tuning of the cluster
 
 The set-up of spark parameters influencing performance were automatically adjusted using the AWS property 
 `maximizeResourceAllocation`. Perhaps, this configuration is not the best one for our case, and it would be worthwhile handtuning
-spark properties by hand.
+spark properties.
