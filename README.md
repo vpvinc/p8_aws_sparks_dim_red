@@ -133,9 +133,9 @@ The approach is very well explained in the source:
 
 Process detailed for an image:
 1) the image is loaded as bytearray: `bytearray(b'\xff\xd8\xff\xe0\x00..` , length = 57284
-2) the image is preprocessed to be fed to RestNet50: 
+2) the image is preprocessed to be fed to ResNet50: 
  `array([[[151.061  , 138.22101, 131.32...` , shape = (224, 224, 3) (RGB format)
-3) the image is processed by RestNet50 and outputs a vector as a list: `[0.0, 0.0, 2.884536027908, 0.0,...`, length 100352
+3) the image is processed by ResNet50 and outputs a vector as a list: `[0.0, 0.0, 2.884536027908, 0.0,...`, length 100352
 
 <p align="center">
   <img width="511" src=?raw=true" />
@@ -229,7 +229,8 @@ and make sure Livy and JupyterEnterpriseGateway were installed (see 5. a.) befor
 
 The PCA takes 15 minutes to complete. One approach to make it faster could be reducing the size of the input vectors (100352).
 More precisely, we could find a pre-trained CNN that featurizes images in shorter vectors, while loosing marginal information
-compared with RestNet50.
+compared with ResNet50. We could also try using the higher layer of ResNet50 `flatten_1 (Flatten)  (None, 32768)` and 
+see if the PCA gets a satisfactory cumulated variance.
 
 ### b. Tuning of the cluster
 
