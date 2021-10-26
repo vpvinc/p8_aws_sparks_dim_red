@@ -230,7 +230,7 @@ and make sure Livy and JupyterEnterpriseGateway were installed (see 5. a.) befor
 The PCA takes 15 minutes to complete. One approach to make it faster could be reducing the size of the input vectors (100352).
 More precisely, we could find a pre-trained CNN that featurizes images in shorter vectors, while loosing marginal information
 compared with ResNet50. We could also try using the higher layer of ResNet50 `flatten_1 (Flatten)  (None, 32768)` and 
-see if the PCA gets a satisfactory cumulated variance.
+see if the PCA executes faster.
 
 ### b. Tuning of the cluster
 
